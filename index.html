@@ -1,9 +1,475 @@
 <!DOCTYPE html>
-<html>
-  <head>
-    <title>Мой сайт</title>
-  </head>
-  <body>
-    <h1>Привет, мир!</h1>
-  </body>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Приглашение на свадьбу</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Playfair Display', serif;
+            line-height: 1.6;
+            color: #333;
+            background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        /* Навигация */
+        .navbar {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            z-index: 1000;
+            padding: 1rem 0;
+            box-shadow: 0 2px 20px rgba(0,0,0,0.1);
+        }
+
+        .nav-links {
+            display: flex;
+            justify-content: center;
+            list-style: none;
+            gap: 2rem;
+        }
+
+        .nav-links a {
+            text-decoration: none;
+            color: #333;
+            font-weight: 500;
+            transition: color 0.3s ease;
+        }
+
+        .nav-links a:hover {
+            color: #d4af37;
+        }
+
+        /* Секции */
+        section {
+            padding: 80px 0;
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+        }
+
+        .hero {
+            background: linear-gradient(rgba(0,0,0,0.3), rgba(0,0,0,0.3)), 
+                        url('https://images.unsplash.com/photo-1519741497674-611481863552?ixlib=rb-4.0.3&auto=format&fit=crop&w=2070&q=80');
+            background-size: cover;
+            background-position: center;
+            color: white;
+            text-align: center;
+        }
+
+        .hero h1 {
+            font-size: 3.5rem;
+            margin-bottom: 1rem;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
+        }
+
+        .hero .names {
+            font-size: 2.5rem;
+            margin-bottom: 2rem;
+            color: #d4af37;
+        }
+
+        .hero .date {
+            font-size: 1.5rem;
+            margin-bottom: 1rem;
+        }
+
+        .hero .location {
+            font-size: 1.2rem;
+            opacity: 0.9;
+        }
+
+        /* О молодоженах */
+        .couple {
+            background: white;
+            text-align: center;
+        }
+
+        .couple-photo {
+            width: 300px;
+            height: 300px;
+            border-radius: 50%;
+            object-fit: cover;
+            margin: 0 auto 2rem;
+            border: 5px solid #d4af37;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+        }
+
+        .couple h2 {
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+            color: #333;
+        }
+
+        .couple p {
+            font-size: 1.2rem;
+            color: #666;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        /* Программа */
+        .program {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+        }
+
+        .program h2 {
+            text-align: center;
+            font-size: 2.5rem;
+            margin-bottom: 3rem;
+        }
+
+        .timeline {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .timeline-item {
+            display: flex;
+            align-items: center;
+            margin-bottom: 2rem;
+            padding: 1.5rem;
+            background: rgba(255,255,255,0.1);
+            border-radius: 10px;
+            backdrop-filter: blur(10px);
+        }
+
+        .time {
+            font-size: 1.5rem;
+            font-weight: bold;
+            min-width: 120px;
+            color: #d4af37;
+        }
+
+        .event {
+            flex: 1;
+            font-size: 1.2rem;
+        }
+
+        /* Дресс-код */
+        .dresscode {
+            background: white;
+            text-align: center;
+        }
+
+        .dresscode h2 {
+            font-size: 2.5rem;
+            margin-bottom: 2rem;
+            color: #333;
+        }
+
+        .dresscode-content {
+            max-width: 600px;
+            margin: 0 auto;
+            padding: 2rem;
+            background: #f8f9fa;
+            border-radius: 15px;
+            border-left: 5px solid #d4af37;
+        }
+
+        .dresscode-content h3 {
+            color: #d4af37;
+            margin-bottom: 1rem;
+        }
+
+        /* Анкета */
+        .rsvp {
+            background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+            color: white;
+        }
+
+        .rsvp h2 {
+            text-align: center;
+            font-size: 2.5rem;
+            margin-bottom: 3rem;
+        }
+
+        .form-container {
+            max-width: 600px;
+            margin: 0 auto;
+            background: rgba(255,255,255,0.1);
+            padding: 2rem;
+            border-radius: 15px;
+            backdrop-filter: blur(10px);
+        }
+
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 0.5rem;
+            font-weight: 500;
+        }
+
+        .form-group input,
+        .form-group select,
+        .form-group textarea {
+            width: 100%;
+            padding: 0.8rem;
+            border: none;
+            border-radius: 5px;
+            font-size: 1rem;
+            background: rgba(255,255,255,0.9);
+        }
+
+        .form-group select {
+            cursor: pointer;
+        }
+
+        .submit-btn {
+            background: #d4af37;
+            color: white;
+            padding: 1rem 2rem;
+            border: none;
+            border-radius: 5px;
+            font-size: 1.1rem;
+            cursor: pointer;
+            transition: background 0.3s ease;
+            width: 100%;
+        }
+
+        .submit-btn:hover {
+            background: #b8941f;
+        }
+
+        /* Адаптивность */
+        @media (max-width: 768px) {
+            .nav-links {
+                flex-direction: column;
+                gap: 1rem;
+            }
+
+            .hero h1 {
+                font-size: 2.5rem;
+            }
+
+            .hero .names {
+                font-size: 2rem;
+            }
+
+            .timeline-item {
+                flex-direction: column;
+                text-align: center;
+            }
+
+            .time {
+                margin-bottom: 0.5rem;
+            }
+        }
+
+        /* Анимации */
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        section {
+            animation: fadeInUp 0.8s ease-out;
+        }
+    </style>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <!-- Навигация -->
+    <nav class="navbar">
+        <div class="container">
+            <ul class="nav-links">
+                <li><a href="#hero">Главная</a></li>
+                <li><a href="#couple">О нас</a></li>
+                <li><a href="#program">Программа</a></li>
+                <li><a href="#dresscode">Дресс-код</a></li>
+                <li><a href="#rsvp">Ответить</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <!-- Главная секция -->
+    <section id="hero" class="hero">
+        <div class="container">
+            <h1>Приглашаем вас на нашу свадьбу</h1>
+            <div class="names">Александр & Мария</div>
+            <div class="date">15 июня 2024 года</div>
+            <div class="location">Ресторан "Золотой век" • Москва</div>
+        </div>
+    </section>
+
+    <!-- О молодоженах -->
+    <section id="couple" class="couple">
+        <div class="container">
+            <img src="https://images.unsplash.com/photo-1519741497674-611481863552?ixlib=rb-4.0.3&auto=format&fit=crop&w=2070&q=80" 
+                 alt="Молодожены" class="couple-photo">
+            <h2>Александр & Мария</h2>
+            <p>Мы рады пригласить вас разделить с нами этот особенный день. Ваше присутствие сделает нашу свадьбу еще более незабываемой и счастливой.</p>
+        </div>
+    </section>
+
+    <!-- Программа -->
+    <section id="program" class="program">
+        <div class="container">
+            <h2>Программа мероприятия</h2>
+            <div class="timeline">
+                <div class="timeline-item">
+                    <div class="time">16:00</div>
+                    <div class="event">Сбор гостей, регистрация</div>
+                </div>
+                <div class="timeline-item">
+                    <div class="time">16:30</div>
+                    <div class="event">Торжественная церемония бракосочетания</div>
+                </div>
+                <div class="timeline-item">
+                    <div class="time">17:00</div>
+                    <div class="event">Праздничный банкет</div>
+                </div>
+                <div class="timeline-item">
+                    <div class="time">18:00</div>
+                    <div class="event">Первый танец молодоженов</div>
+                </div>
+                <div class="timeline-item">
+                    <div class="time">19:00</div>
+                    <div class="event">Развлекательная программа</div>
+                </div>
+                <div class="timeline-item">
+                    <div class="time">23:00</div>
+                    <div class="event">Завершение праздника</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Дресс-код -->
+    <section id="dresscode" class="dresscode">
+        <div class="container">
+            <h2>Дресс-код</h2>
+            <div class="dresscode-content">
+                <h3>👔 Smart Casual</h3>
+                <p>Для мужчин: костюм или рубашка с брюками</p>
+                <p>Для женщин: платье или элегантный костюм</p>
+                <p>Цветовая гамма: пастельные тона, белый, золотой</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Анкета гостя -->
+    <section id="rsvp" class="rsvp">
+        <div class="container">
+            <h2>Подтвердите ваше участие</h2>
+            <div class="form-container">
+                <form id="rsvpForm">
+                    <div class="form-group">
+                        <label for="name">Ваше имя *</label>
+                        <input type="text" id="name" name="name" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="status">Придете ли вы на свадьбу? *</label>
+                        <select id="status" name="status" required>
+                            <option value="">Выберите ответ</option>
+                            <option value="coming">Да, обязательно приду</option>
+                            <option value="not-coming">К сожалению, не смогу прийти</option>
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="phone">Контактный номер телефона *</label>
+                        <input type="tel" id="phone" name="phone" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="alcohol">Предпочитаемый алкоголь</label>
+                        <select id="alcohol" name="alcohol">
+                            <option value="">Выберите напиток</option>
+                            <option value="wine">Вино</option>
+                            <option value="champagne">Шампанское</option>
+                            <option value="vodka">Водка</option>
+                            <option value="whiskey">Виски</option>
+                            <option value="none">Не употребляю алкоголь</option>
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="message">Дополнительные пожелания</label>
+                        <textarea id="message" name="message" rows="3" placeholder="Ваши пожелания молодоженам..."></textarea>
+                    </div>
+
+                    <button type="submit" class="submit-btn">Отправить ответ</button>
+                </form>
+            </div>
+        </div>
+    </section>
+
+    <script>
+        // Плавная прокрутка для навигации
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                }
+            });
+        });
+
+        // Обработка формы
+        document.getElementById('rsvpForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            const formData = new FormData(this);
+            const data = Object.fromEntries(formData);
+            
+            // Здесь можно добавить отправку данных на сервер
+            alert('Спасибо за ваш ответ! Мы обязательно свяжемся с вами.');
+            
+            // Очистка формы
+            this.reset();
+        });
+
+        // Анимация появления элементов при прокрутке
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -50px 0px'
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.style.opacity = '1';
+                    entry.target.style.transform = 'translateY(0)';
+                }
+            });
+        }, observerOptions);
+
+        document.querySelectorAll('section').forEach(section => {
+            section.style.opacity = '0';
+            section.style.transform = 'translateY(30px)';
+            section.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
+            observer.observe(section);
+        });
+    </script>
+</body>
 </html>
