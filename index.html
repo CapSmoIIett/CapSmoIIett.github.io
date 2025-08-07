@@ -448,9 +448,15 @@
             const data = Object.fromEntries(formData);
 
             // === НАСТРОЙТЕ СВОИ ДАННЫЕ БОТА ===
-            const BOT_TOKEN = 'AAFr9hVJ4PvmWbg93i2Y2A_leb6ua2DCTAI'; // <-- Вставьте сюда токен вашего бота
-            const CHAT_ID = '8289341461';      // <-- Вставьте сюда chat_id (ваш или группы)
+            const BOT_TOKEN = '8289341461:AAFr9hVJ4PvmWbg93i2Y2A_leb6ua2DCTAI';
+            const CHAT_ID = '504375043'; // <-- Вставьте сюда chat_id (ваш или группы)
             // ================================
+
+            // Проверяем, что chat_id не равен '0'
+            if (CHAT_ID === '0') {
+                alert('Пожалуйста, сначала получите ваш chat_id!\n\n1. Найдите бота в Telegram\n2. Нажмите "Start"\n3. Перейдите по ссылке:\nhttps://api.telegram.org/bot8289341461:AAFr9hVJ4PvmWbg93i2Y2A_leb6ua2DCTAI/getUpdates\n4. Скопируйте chat_id из ответа');
+                return;
+            }
 
             // Формируем текст сообщения
             const text = `Новая анкета гостя на свадьбу:%0A%0A` +
@@ -469,13 +475,18 @@
                     },
                     body: `chat_id=${CHAT_ID}&text=${text}`
                 });
-                if (response.ok) {
+                
+                const result = await response.json();
+                
+                if (response.ok && result.ok) {
                     alert('Спасибо за ваш ответ! Мы обязательно свяжемся с вами.');
                     this.reset();
                 } else {
-                    alert('Ошибка при отправке. Попробуйте еще раз или свяжитесь с организаторами.');
+                    console.error('Telegram API error:', result);
+                    alert(`Ошибка при отправке: ${result.description || 'Неизвестная ошибка'}\n\nПроверьте chat_id и права бота.`);
                 }
             } catch (error) {
+                console.error('Network error:', error);
                 alert('Ошибка соединения. Попробуйте еще раз позже.');
             }
         });
